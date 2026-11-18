@@ -94,6 +94,11 @@ class FuzzySearch:
     def _match(
         self, query: str, candidate: str
     ) -> Iterable[tuple[float, Sequence[int]]]:
+        if not query:
+            # An empty query matches nothing
+            yield (0.0, ())
+            return
+
         letter_positions: list[list[int]] = []
         position = 0
 

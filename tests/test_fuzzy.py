@@ -37,3 +37,14 @@ def test_highlight():
         Span(9, 10, Style(reverse=True)),
         Span(10, 11, Style(reverse=True)),
     ]
+
+
+def test_empty_query():
+    """An empty query should match nothing, rather than raise.
+
+    Regression test for https://github.com/Textualize/textual/issues/6776
+    """
+    matcher = Matcher("")
+    assert matcher.match("Toggle dark mode") == 0
+    assert matcher.match("") == 0
+    assert matcher.highlight("Toggle dark mode").spans == []
